@@ -413,24 +413,6 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Column 2: Navigation Links */}
-            <div className="lg:col-span-2 flex flex-col gap-4">
-              <h4 className="font-bold text-xs tracking-[0.2em] uppercase border-b border-white/30 pb-2" style={{ color: '#ffffff' }}>
-                Navigation
-              </h4>
-              <div className="flex flex-col gap-2.5">
-                {['Home', 'About', 'Domains', 'Process', 'Insights'].map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item.toLowerCase())}
-                    className="text-left text-xs md:text-sm font-medium text-zinc-300 hover:text-white transition-colors cursor-pointer w-fit hover:translate-x-1 duration-200"
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </div>
-
             {/* Column 3: Contact Info */}
             <div className="lg:col-span-3 flex flex-col gap-4">
               <h4 className="font-bold text-xs tracking-[0.2em] uppercase border-b border-white/30 pb-2" style={{ color: '#ffffff' }}>

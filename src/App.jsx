@@ -7,7 +7,6 @@ import DevelopmentProcess from './components/DevelopmentProcess';
 import BentoGrid from './components/BentoGrid';
 import Chatbot from './components/Chatbot';
 import Footer from './components/Footer';
-
 function App() {
   // Global smooth scroll / inertial scrolling using Lenis
   useEffect(() => {
@@ -22,7 +21,6 @@ function App() {
       infinite: false,
     });
 
-    // Expose Lenis globally so Navbar / Hero can trigger smooth scrolling
     window.lenis = lenis;
 
     function raf(time) {
@@ -32,7 +30,6 @@ function App() {
 
     requestAnimationFrame(raf);
 
-    // Clean up
     return () => {
       delete window.lenis;
       lenis.destroy();
@@ -40,7 +37,8 @@ function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-white text-gray-700 antialiased selection:bg-brand-orange/20 selection:text-brand-orange">
+    /* FIXED: Changed to bg-black text-white and added overflow-x-hidden w-full */
+    <div className="relative min-h-screen bg-black text-white antialiased selection:bg-white selection:text-black overflow-x-hidden w-full">
       {/* 1. Hero & Navbar Area */}
       <Hero />
 

@@ -95,7 +95,7 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative w-full min-h-screen bg-black flex flex-col items-center justify-center overflow-hidden text-white"
+      className="relative w-full min-h-[100dvh] bg-black flex flex-col items-center justify-center overflow-hidden overflow-x-hidden text-white"
     >
       {/* Background Video with Scroll Zoom & Bottom Blend */}
       <motion.div
@@ -121,21 +121,21 @@ export default function Hero() {
       </motion.div>
 
       {/* Floating Header Navbar */}
-      <header className="absolute top-0 left-0 right-0 z-50 w-full px-6 md:px-12 py-6 flex items-center justify-between max-w-7xl mx-auto">
+      <header className="absolute top-0 left-0 right-0 z-50 w-full px-4 sm:px-6 md:px-12 py-6 flex items-center justify-between max-w-7xl mx-auto">
         {/* Left Logo Pill */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex items-center gap-3 bg-white/95 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.5)] cursor-pointer hover:bg-white transition-all duration-300 group"
+          className="flex items-center gap-2 sm:gap-3 bg-white/95 backdrop-blur-md border border-white/20 rounded-full px-3 sm:px-4 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.5)] cursor-pointer hover:bg-white transition-all duration-300 group"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <img
             src="/logo.png"
             alt="Teknara Logo"
-            className="w-19 h-9 object-contain group-hover:scale-105 transition-transform"
+            className="w-16 sm:w-20 h-8 sm:h-9 object-contain group-hover:scale-105 transition-transform"
           />
-          <span className="font-['Orbitron'] font-bold text-sm tracking-widest text-black pr-2">
+          <span className="font-['Orbitron'] font-bold text-xs sm:text-sm tracking-widest text-black pr-1 sm:pr-2">
             TEKNARA
           </span>
         </motion.div>
@@ -221,7 +221,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="absolute top-full left-6 right-6 mt-3 bg-[#0d131f]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 flex flex-col gap-3 shadow-2xl md:hidden z-50"
+              className="absolute top-full left-4 right-4 mt-3 bg-[#0d131f]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 flex flex-col gap-3 shadow-2xl md:hidden z-50"
             >
               <button
                 onClick={() => scrollToSection('about')}
@@ -263,12 +263,12 @@ export default function Hero() {
         style={{
           y: textY,
           opacity: textOpacity,
-          x: mousePosition.x * 20,
+          x: mousePosition.x * 10, // scaled down slightly for safer boundaries on resize/zoom
         }}
-        className="relative z-10 flex flex-col items-center justify-center space-y-2 md:space-y-3 text-center px-4"
+        className="relative z-10 flex flex-col items-center justify-center space-y-2 md:space-y-3 text-center px-4 max-w-full"
       >
         {/* Kinetic Text Animation Container */}
-        <div className="relative py-4 flex items-center justify-center">
+        <div className="relative py-4 flex items-center justify-center max-w-full">
           {/* Sweeping Horizontal Laser Line */}
           <motion.div
             initial={{ left: "0%", width: "0%", opacity: 1 }}
@@ -299,13 +299,15 @@ export default function Hero() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="flex font-['Orbitron'] font-light text-6xl sm:text-7xl md:text-8xl lg:text-9xl leading-none text-white drop-shadow-2xl"
+            className="flex flex-wrap justify-center font-['Orbitron'] font-light text-4xl sm:text-6xl md:text-8xl lg:text-9xl leading-none text-white drop-shadow-2xl"
           >
             {titleLetters.map((letter, index) => (
               <motion.span
                 key={index}
                 variants={letterVariants}
-                className={`inline-block ${index !== titleLetters.length - 1 ? "mr-[0.35em] sm:mr-[0.45em] md:mr-[0.566em]" : ""
+                className={`inline-block ${index !== titleLetters.length - 1
+                    ? "mr-[0.15em] sm:mr-[0.35em] md:mr-[0.566em]"
+                    : ""
                   }`}
                 style={{
                   background: 'linear-gradient(180deg, #ffffff 60%, #93c5fd 100%)',
@@ -324,7 +326,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="font-['Inter'] font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[0.593em] leading-none text-white drop-shadow-2xl mr-[-0.593em]"
+          className="font-['Inter'] font-bold text-xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[0.2em] sm:tracking-[0.593em] leading-none text-white drop-shadow-2xl mr-0 sm:mr-[-0.593em]"
           style={{
             background: 'linear-gradient(180deg, #ffffff 70%, #c4b5fd 100%)',
             WebkitBackgroundClip: 'text',
@@ -354,7 +356,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.2 }}
-          className="font-['Inter'] font-light text-[10px] sm:text-xs md:text-sm tracking-[0.2em] uppercase text-white/50 drop-shadow-lg"
+          className="font-['Inter'] font-light text-[10px] sm:text-xs md:text-sm tracking-[0.2em] uppercase text-white/50 drop-shadow-lg px-4"
         >
           INNOVATE · INTEGRATE · ELEVATE
         </motion.p>
@@ -363,14 +365,14 @@ export default function Hero() {
       {/* Scroll Down Indicator */}
       <motion.div
         style={{ opacity: textOpacity }}
-        className="absolute bottom-8 z-10 w-full flex justify-center"
+        className="absolute bottom-4 sm:bottom-8 z-10 w-full flex justify-center"
       >
         <button
           onClick={() => scrollToSection('about')}
           className="group flex flex-col items-center text-[10px] font-['Inter'] font-extralight uppercase tracking-[0.3em] text-white/40 hover:text-white transition-colors cursor-pointer drop-shadow-lg"
         >
           <span>Scroll Down</span>
-          <div className="w-px h-10 mt-2 bg-gradient-to-b from-white/40 via-white/10 to-transparent group-hover:from-cyan-400 group-hover:h-12 transition-all duration-300"></div>
+          <div className="w-px h-8 sm:h-10 mt-2 bg-gradient-to-b from-white/40 via-white/10 to-transparent group-hover:from-cyan-400 group-hover:h-10 sm:group-hover:h-12 transition-all duration-300"></div>
         </button>
       </motion.div>
     </section>

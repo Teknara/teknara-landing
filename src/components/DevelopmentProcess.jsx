@@ -100,7 +100,7 @@ export default function DevelopmentProcessSpace3D() {
     normalizedMouseY.set((e.clientY / innerHeight) - 0.5);
   };
 
-  // 2-Second Rotation Cycle with Pixel Transition Loop from 6th -> 1st
+  // 4-Second Rotation Cycle with Pixel Transition Loop from 6th -> 1st
   useEffect(() => {
     if (typeof window !== 'undefined') {
       mouseX.set(window.innerWidth / 2);
@@ -122,7 +122,7 @@ export default function DevelopmentProcessSpace3D() {
         }
         return prev + 1;
       });
-    }, 2000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [isPaused, isPixelating, totalSteps, mouseX, mouseY]);

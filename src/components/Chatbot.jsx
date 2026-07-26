@@ -212,8 +212,8 @@ export default function Chatbot() {
                   className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div className={`max-w-[80%] rounded-2xl p-4 shadow-sm text-xs md:text-sm leading-relaxed ${msg.sender === 'user'
-                      ? 'bg-slate-700 text-white rounded-br-none'
-                      : 'bg-gray-100 text-gray-700 rounded-bl-none border border-gray-200'
+                    ? 'bg-slate-700 text-white rounded-br-none'
+                    : 'bg-gray-100 text-gray-700 rounded-bl-none border border-gray-200'
                     }`}>
                     <p>{msg.text}</p>
                     <span className={`block text-[8px] text-right mt-1.5 font-medium ${msg.sender === 'user' ? 'text-white/80' : 'text-gray-400'

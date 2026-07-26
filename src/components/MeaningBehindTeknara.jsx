@@ -4,7 +4,109 @@ import {
   Cpu, Sparkles, Layers, Zap, Shield,
   Award, Target, TrendingUp, Rocket
 } from 'lucide-react';
-import AsteroidBackground from './AsteroidBackground';
+
+// --- TINY SHARP 3D STARDUST TUNNEL BACKGROUND (NON-ROUND, ULTRA-TINY) ---
+function TinyStardustTunnelBackground() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+
+    let width = (canvas.width = canvas.offsetWidth);
+    let height = (canvas.height = canvas.offsetHeight);
+
+    const handleResize = () => {
+      if (!canvas) return;
+      width = canvas.width = canvas.offsetWidth;
+      height = canvas.height = canvas.offsetHeight;
+    };
+    window.addEventListener('resize', handleResize);
+
+    // High density of ultra-tiny particles for a deep warp effect
+    const particleCount = 280;
+    const particles = Array.from({ length: particleCount }, () => ({
+      x: (Math.random() - 0.5) * width * 3.5,
+      y: (Math.random() - 0.5) * height * 3.5,
+      z: Math.random() * width,
+      size: Math.random() * 0.8 + 0.3, // Extremely tiny base size
+      speed: Math.random() * 4 + 2.5,   // Fast forward motion
+      rotation: Math.random() * Math.PI,
+      rotSpeed: (Math.random() - 0.5) * 0.03,
+    }));
+
+    const render = () => {
+      // Clean clear for crisp motion trails
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+      ctx.fillRect(0, 0, width, height);
+
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const focalLength = 350;
+
+      particles.forEach((p) => {
+        // Move closer to camera
+        p.z -= p.speed;
+        p.rotation += p.rotSpeed;
+
+        // Reset particle to far back when it passes screen
+        if (p.z <= 0) {
+          p.z = width;
+          p.x = (Math.random() - 0.5) * width * 3.5;
+          p.y = (Math.random() - 0.5) * height * 3.5;
+        }
+
+        // Perspective projection
+        const scale = focalLength / p.z;
+        const screenX = centerX + p.x * scale;
+        const screenY = centerY + p.y * scale;
+
+        if (screenX >= 0 && screenX <= width && screenY >= 0 && screenY <= height) {
+          const depthProgress = 1 - p.z / width;
+          const alpha = Math.min(1, depthProgress * 1.5 + 0.1);
+          // Keep them tiny ("too tiny") even when close
+          const currentSize = Math.max(0.4, p.size * scale * 0.9);
+
+          ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+
+          // Draw tiny crisp non-round shape (Rotated sharp diamond/square)
+          ctx.save();
+          ctx.translate(screenX, screenY);
+          ctx.rotate(p.rotation);
+
+          // Sharp diamond pixel shape instead of a circle
+          ctx.beginPath();
+          ctx.moveTo(0, -currentSize * 1.5);
+          ctx.lineTo(currentSize * 1.5, 0);
+          ctx.lineTo(0, currentSize * 1.5);
+          ctx.lineTo(-currentSize * 1.5, 0);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.restore();
+        }
+      });
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 pointer-events-none z-0 w-full h-full block bg-black"
+    />
+  );
+}
 
 const acronymData = [
   {
@@ -101,7 +203,7 @@ export default function MeaningBehindTeknara() {
     timeoutRef.current = setTimeout(() => {
       setDisplayStep(step);
     }, 800);
-    return () => clearTimeout(timeoutRef.current);
+    return () => clearInterval(timeoutRef.current);
   }, [step]);
 
   const rotationAngle = -step * angleStep;
@@ -113,8 +215,8 @@ export default function MeaningBehindTeknara() {
       id="about"
       className="relative min-h-screen pt-16 pb-20 md:pt-20 md:pb-24 px-6 md:px-12 overflow-hidden bg-black text-white antialiased"
     >
-      {/* Code-Generated 3D Asteroid Field Background */}
-      <AsteroidBackground />
+      {/* Tiny Sharp Stardust Tunnel Background */}
+      <TinyStardustTunnelBackground />
 
       <div className="relative z-20 max-w-7xl mx-auto">
         {/* Section Header */}
@@ -237,20 +339,16 @@ export default function MeaningBehindTeknara() {
           <div className="w-full lg:w-1/2 max-w-2xl relative h-[500px] md:h-[600px] perspective-[1500px]">
             <div className="relative w-full h-full flex items-center justify-center mt-6 lg:mt-0" style={{ transformStyle: 'preserve-3d' }}>
               {acronymData.map((item, cardIdx) => {
-                // Determine positional difference relative to the current active step
                 const diff = cardIdx - step;
                 const isActive = diff === 0;
                 const isPast = diff < 0;
                 const isFuture = diff > 0;
 
-                // 3D animation states recreating the "Laptop Closing / Stack" effect
                 let animateState = {};
 
                 if (isActive) {
-                  // Currently active card stands upright in front
                   animateState = { rotateX: 0, y: 0, z: 0, opacity: 1, scale: 1 };
                 } else if (isPast) {
-                  // Past cards "close" by falling forward/down (rotateX -90 with bottom origin)
                   animateState = {
                     rotateX: -90,
                     y: 250,
@@ -259,12 +357,11 @@ export default function MeaningBehindTeknara() {
                     scale: 0.9
                   };
                 } else {
-                  // Future cards stack neatly behind the active card
                   animateState = {
                     rotateX: 0,
-                    y: diff * -35,   // Stack upwards (creates the tab look)
-                    z: diff * -80,   // Push deeper into 3D space
-                    opacity: Math.max(1 - diff * 0.15, 0), // Gradual fade for depth
+                    y: diff * -35,
+                    z: diff * -80,
+                    opacity: Math.max(1 - diff * 0.15, 0),
                     scale: 1 - diff * 0.04
                   };
                 }
@@ -276,15 +373,13 @@ export default function MeaningBehindTeknara() {
                     animate={animateState}
                     transition={{ duration: 0.7, type: "spring", bounce: 0.2 }}
                     style={{
-                      transformOrigin: "bottom center", // Acts as the laptop hinge
+                      transformOrigin: "bottom center",
                       zIndex: isActive ? 50 : isFuture ? 40 - diff : 10 + diff,
                     }}
-                    className={`absolute w-full top-[5%] sm:top-[10%] ${isActive ? 'pointer-events-auto' : 'pointer-events-none'
-                      }`}
+                    className={`absolute w-full top-[5%] sm:top-[10%] ${isActive ? 'pointer-events-auto' : 'pointer-events-none'}`}
                   >
                     {/* Solid White Card Design */}
                     <div className="group relative bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 border border-gray-200 overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.3)] transition-all duration-300">
-
                       <div className="relative z-10">
                         {/* Related Acronym Letters Navigation Strip */}
                         <div className="mb-6 pb-4 border-b border-gray-100">
@@ -299,8 +394,8 @@ export default function MeaningBehindTeknara() {
                                   key={navIdx}
                                   onClick={() => handleItemClick(navIdx)}
                                   className={`flex-1 py-2 rounded-xl border flex flex-col items-center justify-center transition-all duration-300 cursor-pointer ${isLetterActive
-                                      ? 'bg-white border-gray-300 shadow-[0_4px_12px_rgba(0,0,0,0.06)] scale-105 z-10'
-                                      : 'bg-gray-50 border-gray-100 hover:border-gray-300 hover:bg-gray-100'
+                                    ? 'bg-white border-gray-300 shadow-[0_4px_12px_rgba(0,0,0,0.06)] scale-105 z-10'
+                                    : 'bg-gray-50 border-gray-100 hover:border-gray-300 hover:bg-gray-100'
                                     }`}
                                 >
                                   <span className={`font-['Orbitron'] font-bold text-sm sm:text-base transition-colors ${isLetterActive ? 'text-gray-900' : 'text-gray-400'}`}>
@@ -367,8 +462,8 @@ export default function MeaningBehindTeknara() {
                               <div
                                 key={idx}
                                 className={`h-1.5 rounded-full transition-all duration-500 ${idx === step
-                                    ? 'w-8 bg-gray-900 shadow-[0_2px_4px_rgba(0,0,0,0.2)]'
-                                    : 'w-3 bg-gray-200'
+                                  ? 'w-8 bg-gray-900 shadow-[0_2px_4px_rgba(0,0,0,0.2)]'
+                                  : 'w-3 bg-gray-200'
                                   }`}
                               />
                             ))}

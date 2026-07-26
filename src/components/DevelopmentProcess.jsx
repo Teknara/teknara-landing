@@ -71,7 +71,6 @@ const processSteps = [
 export default function DevelopmentProcessSpace3D() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [isPixelating, setIsPixelating] = useState(false);
   const totalSteps = processSteps.length;
 
   // --- MOUSE TRACKING SETUP ---
@@ -100,32 +99,26 @@ export default function DevelopmentProcessSpace3D() {
     normalizedMouseY.set((e.clientY / innerHeight) - 0.5);
   };
 
-  // 4-Second Rotation Cycle with Pixel Transition Loop from 6th -> 1st
+  // 4-Second Rotation Cycle with direct loop from 6th -> 1st
   useEffect(() => {
     if (typeof window !== 'undefined') {
       mouseX.set(window.innerWidth / 2);
       mouseY.set(window.innerHeight / 2);
     }
 
-    if (isPaused || isPixelating) return;
+    if (isPaused) return;
 
     const interval = setInterval(() => {
       setActiveIndex((prev) => {
         if (prev === totalSteps - 1) {
-          // Trigger pixelation dissolve effect before looping back to 0
-          setIsPixelating(true);
-          setTimeout(() => {
-            setActiveIndex(0);
-            setIsPixelating(false);
-          }, 700);
-          return prev;
+          return 0;
         }
         return prev + 1;
       });
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [isPaused, isPixelating, totalSteps, mouseX, mouseY]);
+  }, [isPaused, totalSteps, mouseX, mouseY]);
 
   // Generate Orbiting Rings of Particles
   const orbitRings = useMemo(() => [
@@ -157,32 +150,6 @@ export default function DevelopmentProcessSpace3D() {
       onMouseMove={handleMouseMove}
       className="relative min-h-screen py-20 md:py-28 px-6 md:px-12 bg-black border-t border-b border-white/10 overflow-hidden text-white"
     >
-      {/* ================= PIXEL DISSOLVE TRANSITION OVERLAY ================= */}
-      <AnimatePresence>
-        {isPixelating && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-50 bg-black/95 grid grid-cols-12 grid-rows-12 pointer-events-none overflow-hidden"
-          >
-            {Array.from({ length: 144 }).map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: [0, 1.3, 0], opacity: [0, 1, 0] }}
-                transition={{
-                  duration: 0.5,
-                  delay: (i % 12) * 0.02 + Math.floor(i / 12) * 0.015,
-                  ease: "easeInOut"
-                }}
-                className="bg-white border border-black/40 shadow-[0_0_10px_rgba(255,255,255,0.8)]"
-              />
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* ================= INTERACTIVE MOUSE GLOW ================= */}
       <motion.div
         style={{

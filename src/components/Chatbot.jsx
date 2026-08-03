@@ -262,7 +262,7 @@ export default function Chatbot() {
                 placeholder="Ask about domains, projects..."
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                className="flex-grow text-xs border border-gray-200 focus:border-slate-500 focus:ring-1 focus:ring-slate-500 outline-none rounded-xl px-4 py-2 bg-gray-50"
+                className="flex-grow text-xs text-slate-900 border border-gray-200 focus:border-slate-500 focus:ring-1 focus:ring-slate-500 outline-none rounded-xl px-4 py-2 bg-gray-50"
               />
               <button
                 type="submit"

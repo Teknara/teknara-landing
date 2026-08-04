@@ -261,7 +261,7 @@ export default function MeaningBehindTeknara() {
                   <div className="absolute -bottom-8 w-3/4 h-8 bg-white/10 blur-xl rounded-full transform rotateX(80deg)"></div>
                   <img
                     src="/logo.png"
-                    alt="Teknara Logo"
+                    alt="TEKNARA IT SOLUTIONS Logo"
                     className="w-full h-full object-contain filter drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]"
                   />
                 </div>

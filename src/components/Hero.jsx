@@ -153,7 +153,7 @@ export default function Hero() {
           >
             <img
               src="/logo.png"
-              alt="Teknara Logo"
+              alt="TEKNARA IT SOLUTIONS Logo"
               className="w-16 sm:w-20 h-8 sm:h-9 object-contain group-hover:scale-105 transition-transform"
             />
             <span className="font-['Orbitron'] font-bold text-xs sm:text-sm tracking-widest text-black pr-1 sm:pr-2">

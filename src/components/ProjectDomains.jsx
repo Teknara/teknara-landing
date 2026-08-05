@@ -272,7 +272,7 @@ export default function ProjectDomains() {
                     <div className="flex-1 flex items-center justify-center z-10 w-full relative my-2">
                       <img
                         src={item.image}
-                        alt={item.title}
+                        alt="Software Development Project Domains by TEKNARA IT SOLUTIONS"
                         className="w-40 h-40 sm:w-44 sm:h-44 object-cover rounded-2xl shadow-md transition-transform duration-500 hover:scale-105"
                       />
                     </div>

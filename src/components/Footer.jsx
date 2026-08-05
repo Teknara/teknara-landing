@@ -429,7 +429,7 @@ export default function Footer() {
                 <div className="flex items-center gap-3 mb-4">
                   <img
                     src="/logo.png"
-                    alt="TEKNARA Logo"
+                    alt="TEKNARA IT SOLUTIONS Logo"
                     className="h-16 w-16 object-contain"
                   />
                   <span className="font-black text-2xl tracking-tight text-white">

@@ -5,7 +5,7 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 import {
   Mail, MapPin, AtSign, ExternalLink,
   ArrowUpRight, Copy, Check, MessageSquare,
-  MessageCircle, Rocket, Sparkles
+  MessageCircle, Phone, X, Rocket, Sparkles
 } from 'lucide-react';
 
 // Brand Inline SVG Fallbacks
@@ -17,13 +17,14 @@ const LinkedInIcon = () => (
 
 const WhatsAppIcon = () => (
   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
   </svg>
 );
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const [copied, setCopied] = useState(false);
+  const [callPopupOpen, setCallPopupOpen] = useState(false);
   const canvasRef = useRef(null);
 
   const mouseX = useMotionValue(0);
@@ -221,6 +222,7 @@ export default function Footer() {
               size={26}
               className="text-white fill-white transform -rotate-45 drop-shadow-[0_0_15px_rgba(255,255,255,1)]"
             />
+
             <Sparkles
               size={12}
               className="text-white/90 absolute -bottom-1 -left-2 animate-ping"
@@ -411,29 +413,17 @@ export default function Footer() {
               <LinkedInIcon />
             </motion.a>
 
-            <motion.a
+            {/* Call Button */}
+            <motion.button
+              type="button"
               whileHover={{ scale: 1.2, y: -5 }}
               whileTap={{ scale: 0.9 }}
-              href="https://wa.me/919061263977"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="WhatsApp 9061263977"
-              className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg hover:bg-zinc-200 transition-colors"
+              onClick={() => setCallPopupOpen(true)}
+              aria-label="Call TEKNARA"
+              className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg hover:bg-zinc-200 transition-colors cursor-pointer"
             >
-              <WhatsAppIcon />
-            </motion.a>
-
-            <motion.a
-              whileHover={{ scale: 1.2, y: -5 }}
-              whileTap={{ scale: 0.9 }}
-              href="https://wa.me/916282584076"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="WhatsApp 6282584076"
-              className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg hover:bg-zinc-200 transition-colors"
-            >
-              <WhatsAppIcon />
-            </motion.a>
+              <Phone size={20} strokeWidth={2.2} />
+            </motion.button>
 
             <motion.a
               whileHover={{ scale: 1.2, y: -5 }}
@@ -476,11 +466,97 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Call Number Popup */}
+        {callPopupOpen && (
+          <div
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm px-6"
+            onClick={() => setCallPopupOpen(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-sm rounded-3xl border border-white/20 bg-zinc-950/95 backdrop-blur-2xl p-6 shadow-[0_25px_80px_rgba(0,0,0,0.7)]"
+            >
+
+              <button
+                type="button"
+                onClick={() => setCallPopupOpen(false)}
+                aria-label="Close call options"
+                className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+
+              <div className="pr-10 mb-6">
+
+                <div className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center mb-4">
+                  <Phone size={22} strokeWidth={2.2} />
+                </div>
+
+                <h3 className="text-xl font-bold text-white">
+                  Call TEKNARA
+                </h3>
+
+                <p className="text-sm text-zinc-400 mt-1">
+                  Choose a number to call directly.
+                </p>
+
+              </div>
+
+              <div className="space-y-3">
+
+                <a
+                  href="tel:+919061263977"
+                  onClick={() => setCallPopupOpen(false)}
+                  className="flex items-center gap-4 w-full rounded-2xl border border-white/15 bg-white/[0.06] px-5 py-4 text-white hover:bg-white/10 hover:border-white/30 transition-all"
+                >
+                  <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shrink-0">
+                    <Phone size={17} />
+                  </div>
+
+                  <div className="flex flex-col">
+                    <span className="text-[10px] uppercase tracking-widest text-zinc-400">
+                      Call Now
+                    </span>
+
+                    <span className="text-base font-semibold">
+                      9061263977
+                    </span>
+                  </div>
+                </a>
+
+                <a
+                  href="tel:+916282584076"
+                  onClick={() => setCallPopupOpen(false)}
+                  className="flex items-center gap-4 w-full rounded-2xl border border-white/15 bg-white/[0.06] px-5 py-4 text-white hover:bg-white/10 hover:border-white/30 transition-all"
+                >
+                  <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shrink-0">
+                    <Phone size={17} />
+                  </div>
+
+                  <div className="flex flex-col">
+                    <span className="text-[10px] uppercase tracking-widest text-zinc-400">
+                      Call Now
+                    </span>
+
+                    <span className="text-base font-semibold">
+                      6282584076
+                    </span>
+                  </div>
+                </a>
+
+              </div>
+
+            </motion.div>
+          </div>
+        )}
+
         {/* Footer Navigation Bar */}
         <div className="relative z-10 bg-white/[0.06] backdrop-blur-2xl border border-white/20 rounded-3xl p-8 sm:p-12 shadow-[0_15px_40px_rgba(0,0,0,0.6)] my-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
 
-            {/* TEKNARA Column */}
             <div className="lg:col-span-6 flex flex-col justify-between">
               <div>
 
@@ -609,6 +685,7 @@ export default function Footer() {
           </div>
 
           <div className="flex gap-6">
+
             <a
               href="#"
               className="hover:text-white transition-colors"
@@ -624,6 +701,7 @@ export default function Footer() {
             >
               Privacy Policy
             </a>
+
           </div>
 
         </div>

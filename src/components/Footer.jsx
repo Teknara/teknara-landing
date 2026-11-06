@@ -1,3 +1,4 @@
+```tsx
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -49,6 +50,7 @@ export default function Footer() {
       width = canvas.width = canvas.offsetWidth;
       height = canvas.height = canvas.offsetHeight;
     };
+
     window.addEventListener('resize', handleResize);
 
     const particleCount = 50;
@@ -118,6 +120,7 @@ export default function Footer() {
         const mdx = p.x - mousePos.x;
         const mdy = p.y - mousePos.y;
         const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+
         if (mdist < 150) {
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
@@ -379,10 +382,22 @@ export default function Footer() {
             <motion.a
               whileHover={{ scale: 1.2, y: -5 }}
               whileTap={{ scale: 0.9 }}
-              href="https://wa.me/917907832145"
+              href="https://wa.me/919061263977"
               target="_blank"
               rel="noreferrer"
-              aria-label="WhatsApp"
+              aria-label="WhatsApp 9061263977"
+              className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg hover:bg-zinc-200 transition-colors"
+            >
+              <WhatsAppIcon />
+            </motion.a>
+
+            <motion.a
+              whileHover={{ scale: 1.2, y: -5 }}
+              whileTap={{ scale: 0.9 }}
+              href="https://wa.me/916282584076"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="WhatsApp 6282584076"
               className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg hover:bg-zinc-200 transition-colors"
             >
               <WhatsAppIcon />
@@ -446,20 +461,48 @@ export default function Footer() {
             </div>
 
             <div className="lg:col-span-3 flex flex-col gap-4">
-              <h4 className="font-bold text-xs tracking-[0.2em] uppercase border-b border-white/30 pb-2 text-white">
+              <h4 className="font-bold text-xs tracking-[0.2em] uppercase border-b border-white/30 pb-2 !text-white">
                 Get In Touch
               </h4>
+
               <div className="flex flex-col gap-3.5 text-xs md:text-sm text-white">
                 <div className="flex items-start gap-2.5">
                   <MapPin size={16} className="text-white shrink-0 mt-0.5" />
                   <span>Thrissur, Kerala, India</span>
                 </div>
+
                 <div className="flex items-center gap-2.5">
                   <Mail size={16} className="text-white shrink-0" />
-                  <a href="mailto:teknaratech@gmail.com" className="hover:text-white underline underline-offset-4 transition-colors">
+                  <a
+                    href="mailto:teknaratech@gmail.com"
+                    className="hover:text-white underline underline-offset-4 transition-colors"
+                  >
                     teknaratech@gmail.com
                   </a>
                 </div>
+
+                <a
+                  href="https://wa.me/919061263977"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2.5 text-white hover:text-zinc-300 transition-colors"
+                  aria-label="WhatsApp 9061263977"
+                >
+                  <WhatsAppIcon />
+                  <span>9061263977</span>
+                </a>
+
+                <a
+                  href="https://wa.me/916282584076"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2.5 text-white hover:text-zinc-300 transition-colors"
+                  aria-label="WhatsApp 6282584076"
+                >
+                  <WhatsAppIcon />
+                  <span>6282584076</span>
+                </a>
+
                 <div className="flex items-center gap-2.5">
                   <MessageSquare size={16} className="text-white shrink-0" />
                   <span className="font-medium">Direct Chat / Mail Ready</span>
@@ -468,12 +511,14 @@ export default function Footer() {
             </div>
 
             <div className="lg:col-span-3 flex flex-col gap-4">
-              <h4 className="font-bold text-xs tracking-[0.2em] uppercase border-b border-white/30 pb-2 text-white">
+              <h4 className="font-bold text-xs tracking-[0.2em] uppercase border-b border-white/30 pb-2 !text-white">
                 Project Inquiries
               </h4>
+
               <p className="text-white text-xs md:text-sm leading-relaxed font-light">
                 Are you a student preparing for Capstone submission, or a startup looking to deploy a high-speed MVP?
               </p>
+
               <div className="pt-2">
                 <a
                   href="mailto:teknaratech@gmail.com?subject=Project Inquiry - TEKNARA"
@@ -493,10 +538,15 @@ export default function Footer() {
           <div>
             <span>© {currentYear} TEKNARA IT SOLUTIONS. ALL RIGHTS RESERVED.</span>
           </div>
+
           <div className="flex gap-6">
-            <a href="#" className="hover:text-white transition-colors">Terms & Conditions</a>
+            <a href="#" className="hover:text-white transition-colors">
+              Terms & Conditions
+            </a>
             <span>|</span>
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors">
+              Privacy Policy
+            </a>
           </div>
         </div>
 
@@ -504,3 +554,4 @@ export default function Footer() {
     </footer>
   );
 }
+```
